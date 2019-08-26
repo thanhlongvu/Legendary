@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 public enum GameEvent
 {
+    //Move Control
+    MOVE_CHARACTER,
+
+    //Turn base
     ROUND_DONE,
     LEVEL_COMPLETE
 }
