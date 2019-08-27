@@ -10,6 +10,14 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameState state; 
+    public GameState state;
+    [SerializeField]
+    private float distanceCol;
+    public float DistanceCol {
+        get
+        {
+            return distanceCol;
+        }
+    }
 }
 
