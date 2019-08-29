@@ -14,6 +14,7 @@ public class EnemySpawnerManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(PlayRounds());
+        Invoke("SetDistanceCol", 1f);
     }
 
     private IEnumerator PlayRounds()
@@ -63,6 +64,11 @@ public class EnemySpawnerManager : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    private void SetDistanceCol()
+    {
+        GameManager.Instance.DistanceCol = Vector3.Distance(transform.GetChild(0).position, transform.GetChild(1).position);
     }
 }
 

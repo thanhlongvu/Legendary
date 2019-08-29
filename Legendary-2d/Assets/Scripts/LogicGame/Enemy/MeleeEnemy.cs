@@ -19,70 +19,74 @@ public class MeleeEnemy : EnemyBase
     void Start()
     {
         timeAttack = 0;
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        canMove = true;
     }
 
     void Update()
     {
-        Move();
-
+        //Debug
         GizmoManager.DrawLine(transform.position, transform.position + Vector3.down * distanceToSwitchLand);
-        if (canSwitchLand && Time.frameCount % 10 == 0)
-            if (NearBarrier())
+
+        //Move action
+        if ((state == EnemyState.MOVE) && canMove)
+            Move();
+
+        //Scan action
+        if (ScanBarrier())
+        {
+            if (canSwitchLand)
             {
                 //TODO: left or right
                 var randDirect = Random.Range(0, 100) / 50;
 
                 MoveAround((MoveAroundDirect)randDirect);
             }
+            else
+            {
+                //Attack
+                BaseAttack();
+            }
+        }
+        else
+        {
+            if (state != EnemyState.MOVE && canMove)
+                state = EnemyState.MOVE;
+        }
 
         //check time attack cooldown
         if (timeAttack > 0)
             timeAttack -= Time.deltaTime;
 
-        //Enemy attack
-        BaseAttack();
     }
-#endregion
+    #endregion
 
-#region OOP
+
+    #region OOP
     public MeleeEnemy(int hp, int mp) : base(hp, mp)
     {
     }
 
     protected override bool CanAttack()
     {
-        return NearBarrier();
+        return ScanBarrier();
     }
 
     public override void BaseAttack()
     {
-        if(!canSwitchLand && timeAttack <= 0 && CanAttack())
+        if(timeAttack <= 0)
         {
-            isAttack = true;
+            state = EnemyState.ATTACK;
             timeAttack += timecooldownAttack;
             LogSystem.LogError("Attack!!!!!!!");
             return;
         }
-
-        if(!CanAttack())
-        {
-            isAttack = false;
-        }
     }
 
-    public override void Move()
+    private bool ScanBarrier()
     {
-        if(!isAttack)
-            transform.Translate(Vector2.down * Speed * Time.deltaTime);
-    }
-
-    private bool NearBarrier()
-    {
-        RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(transform.position, Vector2.down, distanceToSwitchLand, layerBarrier))
+        RaycastHit2D[] hit = new RaycastHit2D[3];
+        if (Physics2D.RaycastNonAlloc(transform.position, Vector2.down, hit, distanceToSwitchLand, layerBarrier) > 0)
         {
-            //LogSystem.LogWarning(hit.transform.name);
             return true;
         }
 
