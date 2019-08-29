@@ -97,6 +97,7 @@ MonoBehaviour:
   mana: 10
   speed: 1
   canSwitchLand: 1
+  timecooldownAttack: 1.5
   layerBarrier:
     serializedVersion: 2
     m_Bits: 256

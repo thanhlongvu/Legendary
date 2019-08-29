@@ -12,8 +12,15 @@ public abstract class EnemyBase : CreationBase
     [SerializeField]
     protected bool canSwitchLand;
 
+    [SerializeField]
+    protected float timecooldownAttack;
+
+    protected bool isAttack;
+
     public EnemyBase(int hp, int mp) : base(hp, mp)
     {
+        canSwitchLand = false;
+        isAttack = false;
     }
 
     public virtual void MoveAround(MoveAroundDirect dir)
@@ -27,4 +34,6 @@ public abstract class EnemyBase : CreationBase
 
         transform.DOMoveX(xTarget, 0.5f);
     }
+
+    protected abstract bool CanAttack();
 }
