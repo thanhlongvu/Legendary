@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2921805701001281783}
   m_Layer: 0
   m_Name: EnemyBase2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,10 +95,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   mana: 10
-  speed: 1
+  speed: 0.5
   canSwitchLand: 1
   timecooldownAttack: 3
+  xOffset: 0
+  model: {fileID: 0}
+  poolName: 0
   layerBarrier:
     serializedVersion: 2
     m_Bits: 256
   distanceToSwitchLand: 0.6
+  IsChangeXOffset: 0

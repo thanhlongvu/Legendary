@@ -4,24 +4,40 @@ using UnityEngine;
 
 public enum GameState
 {
-    PLAY,
-    PAUSE
+    PLAYING,
+    PAUSE, 
+    WIN,
+    LOSE
 }
 
 public class GameManager : Singleton<GameManager>
 {
     public GameState state;
-    [SerializeField]
-    private float distanceCol;
-    public float DistanceCol {
+
+    private CharacterManager character;
+    public CharacterManager Character
+    {
         get
         {
-            return distanceCol;
+            if(character == null)
+            {
+                character = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterManager>();
+            }
+            return character;
         }
-        set
+        private set
         {
-            distanceCol = value;
+            character = value;
         }
     }
+
+    [Range(0, 1)]
+    public float TIME_STEP_X_AXIS;
+
+    public float DISTANCE_COL { get; set; }
+
+    public float MIN_X;
+    public float MAX_X;
+
 }
 

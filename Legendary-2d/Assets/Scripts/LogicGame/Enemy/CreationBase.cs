@@ -7,12 +7,16 @@ public abstract class CreationBase : MonoBehaviour
     [SerializeField]
     private int mana;
     [SerializeField]
-    private int speed;
+    private float speed;
     public int Health
     {
         get
         {
             return health;
+        }
+        set
+        {
+            health = value;
         }
     }
     public int Mana
@@ -21,9 +25,13 @@ public abstract class CreationBase : MonoBehaviour
         {
             return mana;
         }
+        set
+        {
+            mana = value;
+        }
     }
 
-    public int Speed
+    public float Speed
     {
         get
         {
@@ -37,17 +45,22 @@ public abstract class CreationBase : MonoBehaviour
         mana = mp;
     }
 
-    public abstract void Move();
+    protected abstract void Move(int dir = 0);
 
     public abstract void BaseAttack();
 
+    public abstract void TakeDamage(int damage = 0);
+
+    public abstract void Die();
+
     public virtual void SkillAttack() { }
 
-    public virtual bool IsDead()
+    public bool IsDead
     {
-        if(Health <= 0)
-            return true;
-
-        return false;
+        get
+        {
+            return Health <= 0;
+        }
+        private set { }
     }
 }

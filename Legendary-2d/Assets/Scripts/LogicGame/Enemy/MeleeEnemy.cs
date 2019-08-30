@@ -5,21 +5,34 @@ using UnityEngine;
 
 public class MeleeEnemy : EnemyBase
 {
-#region VARIABLES
-    private Transform player;
+    #region VARIABLES
+    [SerializeField]
+    private PoolName poolName;
     [SerializeField]
     private LayerMask layerBarrier;
     [SerializeField]
     private float distanceToSwitchLand;
-
     private float timeAttack;
-#endregion
+    [SerializeField]
+    private bool IsChangeXOffset = true;
 
-#region UNITY_FUNCTIONS
+    private int healthDefault;
+    private int manaDefault;
+    #endregion
+
+    #region UNITY_FUNCTIONS
+    private void Awake()
+    {
+        //Set default
+        healthDefault = Health;
+        manaDefault = Mana;
+    }
     void Start()
     {
         timeAttack = 0;
         canMove = true;
+        if(IsChangeXOffset)
+            ChangeXByOffset();
     }
 
     void Update()
@@ -56,7 +69,22 @@ public class MeleeEnemy : EnemyBase
         //check time attack cooldown
         if (timeAttack > 0)
             timeAttack -= Time.deltaTime;
+    }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals(GameTag.PLAYER_WEAPON))
+        {
+            //TakeDamage(20);
+        }
+    }
+
+
+    private void OnEnable()
+    {
+        Health = healthDefault;
+        Mana = manaDefault;
     }
     #endregion
 
@@ -92,5 +120,10 @@ public class MeleeEnemy : EnemyBase
 
         return false;
     }
-#endregion
+
+    public override void Die()
+    {
+        PoolManager.Instance.PushPool(gameObject, poolName.ToString());
+    }
+    #endregion
 }

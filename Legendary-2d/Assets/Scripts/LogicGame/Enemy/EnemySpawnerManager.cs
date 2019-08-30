@@ -7,14 +7,27 @@ public class EnemySpawnerManager : MonoBehaviour
     [SerializeField]
     private RoundGame[] rounds;
 
-    [SerializeField]
-    private Transform pools;
+    //[SerializeField]
+    //private Transform pools;
 
     private GameObject finalRoundEnemy;
+
+    [SerializeField]
+    private GameObject CharacterPrefab;
+
     void Start()
     {
         StartCoroutine(PlayRounds());
         Invoke("SetDistanceCol", 1f);
+
+        //Instance CHARACTER
+        StartCoroutine(InstanceCharacter());
+    }
+
+    private IEnumerator InstanceCharacter()
+    {
+        yield return StaticObjects.WAIT_TIME_ZERO_POINT_ONE;
+        Instantiate(CharacterPrefab, transform.GetChild(transform.childCount - 1).position, Quaternion.identity);
     }
 
     private IEnumerator PlayRounds()
@@ -24,13 +37,11 @@ public class EnemySpawnerManager : MonoBehaviour
         {
             StartRound(i);
             yield return new WaitForSeconds((rounds[i].NumberEnemy - 1) * rounds[i].timeDelta + rounds[i].timeMore);
-            LogSystem.LogWarning("End round " + i);
         }
     }
 
     private void StartRound(int index)
     {
-        LogSystem.LogSuccess("Start round " + index);
         StartCoroutine(Spawn(rounds[index].Enemies, rounds[index].NumberEnemy, rounds[index].timeDelta));
     }
 
@@ -42,15 +53,12 @@ public class EnemySpawnerManager : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             //Random enemy
+            int posIndex = Random.Range(0, 1000) / 200;
             int enemyIndex = Random.Range(0, objs.Length);
-            var enemy = Instantiate(objs[enemyIndex], pools) as GameObject;
+            //var enemy = Instantiate(objs[enemyIndex], pools) as GameObject;
+            var enemy = PoolManager.Instance.PopPool(PoolName.BASE_ENEMY.ToString(), transform.GetChild(posIndex).position, Quaternion.identity);
             if (i == number - 1)
                 finalRoundEnemy = enemy;
-
-            //Set position
-            int posIndex = Random.Range(0, 1000) / 200;
-            enemy.transform.position = transform.GetChild(posIndex).position;
-            enemy.transform.rotation = Quaternion.identity;
 
             //waiting
             yield return new WaitForSeconds(timeDelta);
@@ -68,7 +76,7 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void SetDistanceCol()
     {
-        GameManager.Instance.DistanceCol = Vector3.Distance(transform.GetChild(0).position, transform.GetChild(1).position);
+        GameManager.Instance.DISTANCE_COL = Vector3.Distance(transform.GetChild(0).position, transform.GetChild(1).position);
     }
 }
 

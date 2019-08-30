@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 public enum GameEvent
 {
-    //Move Control
+    //Character
     MOVE_CHARACTER,
+    ATTACK_CHARACTER,
 
     //Turn base
     ROUND_DONE,
