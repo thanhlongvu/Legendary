@@ -20,6 +20,12 @@ public class AttackUIControl : MonoBehaviour
         EventManager.CallEvent(GameEvent.ATTACK_CHARACTER);
     }
 
+    public void Log()
+    {
+        LogSystem.LogError("Enter");
+
+    }
+
     private void Update()
     {
         if(pressed && Time.frameCount % 10 == 0)

@@ -146,7 +146,7 @@ MonoBehaviour:
   mana: 100
   speed: 1
   directMove: 0
-  timecooldownMove: 0.35
+  timecooldownMove: 0.2
   timeMove: 0
   state: 0
   baseAttackPrefab: {fileID: 6655128080496919189, guid: 6acac7cb5bd43b9459f3fc5ddcc3b170,

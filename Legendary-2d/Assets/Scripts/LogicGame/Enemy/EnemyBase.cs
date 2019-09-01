@@ -42,7 +42,7 @@ public abstract class EnemyBase : CreationBase
         if (!IsDead)
             Health -= damage;
 
-        if(IsDead)
+        if (IsDead)
             Die();
     }
 

@@ -29,9 +29,6 @@ public class ConvertSpawner : MonoBehaviour
     private IEnumerator SortSpawner()
     {
         yield return StaticObjects.WAIT_TIME_QUARTER;
-        //var posChar = cam.ScreenToWorldPoint(characterSpawnerUI.position);
-        //characterSpawner.position = new Vector2(posChar.x, posChar.y);
-
         for (int i = 0; i < colls.Length; i++)
         {
             var pos = cam.ScreenToWorldPoint(collsUI[i].position);
@@ -41,5 +38,8 @@ public class ConvertSpawner : MonoBehaviour
         //Set col
         GameManager.Instance.MIN_X = colls[0].position.x;
         GameManager.Instance.MAX_X = colls[colls.Length - 1].position.x;
+
+        //Set distance coll UI
+        GameManager.Instance.DISTANCE_COL_UI = Vector2.Distance(collsUI[0].anchoredPosition, collsUI[1].anchoredPosition);
     }
 }

@@ -70,6 +70,9 @@ public class CharacterManager : CreationBase
         {
             SwitchState(CharacterState.MOVE);
             Move(directMove);
+
+            //sound
+            SoundManager.Instance.PlaySound(Sound.MOVE_CHARACTER);
         }
     }
 
@@ -102,6 +105,9 @@ public class CharacterManager : CreationBase
         {
             timeAttack = timeCooldownBaseAttack;
             PoolManager.Instance.PopPool(PoolName.SPEAR.ToString(), transform.position, Quaternion.identity);
+
+            //sound
+            SoundManager.Instance.PlaySound(Sound.ATTACK_CHARACTER);
         }
     }
 
