@@ -7,6 +7,9 @@ public enum GameEvent
     MOVE_CHARACTER,
     ATTACK_CHARACTER,
 
+    //Enemy
+    DIE_ENEMY,
+
     //Turn base
     ROUND_DONE,
     LEVEL_COMPLETE

@@ -1,19 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EnemySpawnerManager : MonoBehaviour
 {
     [SerializeField]
     private RoundGame[] rounds;
 
-    //[SerializeField]
-    //private Transform pools;
-
-    private GameObject finalRoundEnemy;
-
     [SerializeField]
     private GameObject CharacterPrefab;
+    [SerializeField]
+    private GameObject Fortress;
 
     void Start()
     {
@@ -27,17 +23,21 @@ public class EnemySpawnerManager : MonoBehaviour
     private IEnumerator InstanceCharacter()
     {
         yield return StaticObjects.WAIT_TIME_ZERO_POINT_ONE;
-        Instantiate(CharacterPrefab, transform.GetChild(transform.childCount - 1).position, Quaternion.identity);
+        var character = Instantiate(CharacterPrefab, transform.GetChild(transform.childCount - 1).position, Quaternion.identity);
+        Instantiate(Fortress, character.transform.position + Vector3.down * 0.9f, Quaternion.identity);
     }
 
     private IEnumerator PlayRounds()
     {
         yield return StaticObjects.WAIT_TIME_THREE;
+
         for (int i = 0; i < rounds.Length; i++)
         {
             StartRound(i);
             yield return new WaitForSeconds((rounds[i].NumberEnemy - 1) * rounds[i].timeDelta + rounds[i].timeMore);
         }
+        yield return StaticObjects.WAIT_TIME_FIVE;
+        WinGame();
     }
 
     private void StartRound(int index)
@@ -55,28 +55,22 @@ public class EnemySpawnerManager : MonoBehaviour
             //Random enemy
             int posIndex = Random.Range(0, 1000) / 200;
             int enemyIndex = Random.Range(0, objs.Length);
-            //var enemy = Instantiate(objs[enemyIndex], pools) as GameObject;
-            var enemy = PoolManager.Instance.PopPool(PoolName.BASE_ENEMY.ToString(), transform.GetChild(posIndex).position, Quaternion.identity);
-            if (i == number - 1)
-                finalRoundEnemy = enemy;
+            var enemy = PoolManager.Instance.PopPool(((PoolName)enemyIndex).ToString(), transform.GetChild(posIndex).position, Quaternion.identity);
 
             //waiting
             yield return new WaitForSeconds(timeDelta);
         }
     }
 
-    private bool AllEnemyDie()
-    {
-        if (finalRoundEnemy != null)
-        {
-            return false;
-        }
-        return true;
-    }
 
     private void SetDistanceCol()
     {
         GameManager.Instance.DISTANCE_COL = Vector3.Distance(transform.GetChild(0).position, transform.GetChild(1).position);
+    }
+
+    private void WinGame()
+    {
+        Application.Quit();
     }
 }
 

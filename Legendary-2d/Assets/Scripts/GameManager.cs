@@ -35,9 +35,14 @@ public class GameManager : Singleton<GameManager>
     public float TIME_STEP_X_AXIS;
 
     public float DISTANCE_COL { get; set; }
+    public float DISTANCE_COL_UI { get; set; }
 
     public float MIN_X;
     public float MAX_X;
 
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
 }
 

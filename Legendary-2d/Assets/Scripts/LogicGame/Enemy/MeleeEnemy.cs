@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class MeleeEnemy : EnemyBase
 {
     #region VARIABLES
@@ -18,6 +18,9 @@ public class MeleeEnemy : EnemyBase
 
     private int healthDefault;
     private int manaDefault;
+
+    [SerializeField]
+    private Sound soundDie;
     #endregion
 
     #region UNITY_FUNCTIONS
@@ -78,14 +81,20 @@ public class MeleeEnemy : EnemyBase
         {
             //TakeDamage(20);
         }
-    }
 
+        if (other.gameObject.tag.Equals(GameTag.FORTRESS))
+        {
+            //TODO: basic example
+            PoolManager.Instance.PushPool(gameObject, poolName.ToString());
+        }
+    }
 
     private void OnEnable()
     {
         Health = healthDefault;
         Mana = manaDefault;
     }
+
     #endregion
 
 
@@ -123,6 +132,7 @@ public class MeleeEnemy : EnemyBase
 
     public override void Die()
     {
+        SoundManager.Instance.PlaySound(soundDie);
         PoolManager.Instance.PushPool(gameObject, poolName.ToString());
     }
     #endregion

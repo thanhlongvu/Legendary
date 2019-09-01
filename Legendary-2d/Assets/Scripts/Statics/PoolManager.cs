@@ -6,7 +6,8 @@ public enum PoolName
 {
     BASE_ENEMY,
     BASE_ENEMY_2,
-    SPEAR
+    SPEAR,
+    SOUND
 }
 
 public class PoolManager : Singleton<PoolManager>
@@ -28,7 +29,7 @@ public class PoolManager : Singleton<PoolManager>
         pools = new Dictionary<string, Queue<GameObject>>();
     }
 
-    public GameObject PopPool(string poolName, Vector2 pos, Quaternion rotate)
+    public GameObject PopPool(string poolName, Vector2 pos = new Vector2(), Quaternion rotate = new Quaternion())
     {
         //if(!pools.ContainsKey(poolName))
         //{
@@ -68,8 +69,6 @@ public class PoolManager : Singleton<PoolManager>
         //set parent
         obj.transform.SetParent(transform);
         pools[poolName].Enqueue(obj);
-
-
     }
 
     private GameObject GetPrefabByName(string name)

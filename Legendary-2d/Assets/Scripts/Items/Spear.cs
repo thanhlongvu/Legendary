@@ -13,6 +13,8 @@ public class Spear : MonoBehaviour
     private float timeDestroy;
 
     private float timelife;
+
+    private bool isColl = false;
     void Start()
     {
         timelife = timeDestroy;
@@ -30,6 +32,7 @@ public class Spear : MonoBehaviour
     private void OnEnable()
     {
         timelife = timeDestroy;
+        isColl = false;
     }
 
     private void Move()
@@ -39,8 +42,10 @@ public class Spear : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Enemy"))
+        
+        if (other.gameObject.tag.Equals("Enemy") && !isColl)
         {
+            isColl = true;
             other.GetComponent<EnemyBase>().TakeDamage(damage);
 
             //TODO: set effect attacked

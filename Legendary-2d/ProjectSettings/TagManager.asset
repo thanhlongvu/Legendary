@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - PlayerWeapon
   - Wall
+  - Fortress
+  - Cell
   layers:
   - Default
   - TransparentFX

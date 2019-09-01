@@ -298,15 +298,27 @@ MonoBehaviour:
   - Enemies:
     - {fileID: 1539804987460839279, guid: ba45a99a1b83e1e4bb2beaad66723673, type: 3}
     - {fileID: 1539804987460839279, guid: c35105cbe4c6a40459b07ccb5be49359, type: 3}
-    NumberEnemy: 7
+    NumberEnemy: 15
     timeDelta: 1
     timeMore: 10
   - Enemies:
     - {fileID: 1539804987460839279, guid: ba45a99a1b83e1e4bb2beaad66723673, type: 3}
     - {fileID: 1539804987460839279, guid: c35105cbe4c6a40459b07ccb5be49359, type: 3}
-    NumberEnemy: 10
+    NumberEnemy: 25
     timeDelta: 2
     timeMore: 14
+  - Enemies:
+    - {fileID: 1539804987460839279, guid: ba45a99a1b83e1e4bb2beaad66723673, type: 3}
+    - {fileID: 1539804987460839279, guid: c35105cbe4c6a40459b07ccb5be49359, type: 3}
+    NumberEnemy: 40
+    timeDelta: 1.5
+    timeMore: 23
+  - Enemies:
+    - {fileID: 1539804987460839279, guid: ba45a99a1b83e1e4bb2beaad66723673, type: 3}
+    - {fileID: 1539804987460839279, guid: c35105cbe4c6a40459b07ccb5be49359, type: 3}
+    NumberEnemy: 60
+    timeDelta: 2
+    timeMore: 35
   CharacterPrefab: {fileID: 8441650483209294585, guid: 7332364952ad2544d9ab5c914e196202,
     type: 3}
 --- !u!1 &1418476501058050264

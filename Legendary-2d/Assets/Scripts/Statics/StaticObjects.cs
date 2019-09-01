@@ -20,4 +20,6 @@ public class GameTag
     public const string ENEMY = "Enemy";
     public const string PLAYER = "Player";
     public const string PLAYER_WEAPON = "PlayerWeapon";
+    public const string FORTRESS = "Fortress";
+    public const string CELL = "Cell";
 }
